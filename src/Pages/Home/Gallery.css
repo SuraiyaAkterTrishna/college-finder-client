@@ -1,0 +1,25 @@
+.light-effect {
+    position: absolute;
+    top: 100%;
+    left: -100%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transform: rotate(45deg);
+    transition: opacity 0.3s ease-in-out;
+  }
+  .relative:hover .light-effect {
+    animation: move-light 1s forwards;
+    opacity: 1;
+  }
+  @keyframes move-light {
+    0% {
+      top: 100%;
+      left: -100%;
+    }
+    100% {
+      top: -100%;
+      left: 100%;
+    }
+  }
