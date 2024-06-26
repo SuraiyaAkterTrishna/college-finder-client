@@ -1,7 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import img from "../../assets/images/login/login.svg";
 import Swal from "sweetalert2";
 
@@ -23,26 +22,16 @@ const Login = () => {
 
     signIn(email, password)
       .then((result) => {
-        const loggedInUser = result.user;
-        console.log(loggedInUser);
-        const user = { email };
-
-        // Get access token
-        axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.success) {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "User login successful",
-                showConfirmButton: false,
-                timer: 1500
-              });
-              navigate(from, { replace: true });
-            }
+        if (result.user) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "User login successful",
+            showConfirmButton: false,
+            timer: 1500
           });
+          navigate(from, { replace: true });
+        }
       })
       .catch((error) => setErr(error.message));
   };
@@ -155,7 +144,7 @@ const Login = () => {
             </form>
             {err && <p className="text-red-600 text-sm">{err}</p>}
             <p className="my-4 text-center">
-              New to Bookista?
+              New to College?
               <Link className="text-orange-600 font-bold" to="/register">
                 Please Register
               </Link>
